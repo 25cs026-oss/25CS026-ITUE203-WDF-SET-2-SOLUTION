@@ -1,29 +1,28 @@
 INTERNAL PRACTICAL EXAM — BUG REPORT
 
-Enrollment No.:
-Student Name:
-Assigned Task: Task 2 - Product Order
-Date:
+Enrollment No.: 25CS026
+Student Name: KIRTAN KAKADIYA
+Assigned Task: Task 2 - PRODUCT ORDER AND BILL GENERATION DEBUGGING
+Date: 26-08-2026
 
 Instructions:
 For each correction, briefly state the original problem, your correction,
 and why the correction was required. Keep the explanation precise.
 
----------------------------------------------------------------------------
-Bug No. | Level | Error / Problem Found | Correction Made | Reason
----------------------------------------------------------------------------
-1.
-2.
-3.
-4.
-5.
-6.
-7.
-8.
-9.
-10.
-11.
-12.
-13.
-14.
-15.
+| Bug | Level | Error / Problem Found | Correction Made | Reason |
+|---|---|---|---|---|
+| 1 | Simple | `text-align center` invalid | Changed to `text-align: center` | Correct CSS syntax requires colon |
+| 2 | Simple | `orderBox` selector incorrect | Changed to `#orderBox` | `orderBox` is an ID |
+| 3 | Simple | `padding: 20` missing unit | Changed to `padding: 20px` | Padding requires valid CSS unit |
+| 4 | Simple | `onclick="calculate()"` calls wrong function | Changed to `calculateBill()` | Existing function is `calculateBill()` |
+| 5 | Simple | `getElementByID()` incorrect | Changed to `getElementById()` | JavaScript method is case-sensitive |
+| 6 | Medium | JavaScript searches `"products"` | Changed to `"product"` | Must match HTML ID |
+| 7 | Medium | Quantity uses text input | Changed to `type="number" min="1"` | Appropriate HTML5 quantity control |
+| 8 | Medium | Mobile price was 2000 | Changed to 20000 | Displayed Mobile price is ₹20000 |
+| 9 | Medium | Bill uses ID `"bill"` | Changed to `"billBox"` | Must match bill container ID |
+| 10 | Medium | Required-field validation incomplete | Validated customer, product and quantity | All required fields must be present |
+| 11 | Difficult | Total uses addition | Changed to `price * quantity` | Total = Price × Quantity |
+| 12 | Difficult | Quantity validation incomplete | Added empty, NaN and `<= 0` validation | Invalid quantity must stop billing |
+| 13 | Difficult | Customer type not validated | Added Regular/Premium validation | Only specified values are accepted |
+| 14 | Difficult | Confirmation asks about cancelling | Changed to `"Do you want to place this order?"` | OK should place order and Cancel should stop |
+| 15 | Difficult | Billing flow incorrect | Reordered validation, calculation, prompt, confirm and output | Required workflow must be followed |
