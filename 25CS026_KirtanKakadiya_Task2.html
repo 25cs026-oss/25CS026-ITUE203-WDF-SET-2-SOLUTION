@@ -12,16 +12,18 @@
             background-color: #eeeeee;
         }
 
+        /* Center the page title. */
         #mainTitle {
-            text-align center;
+            text-align: center;
             color: darkred;
         }
 
-        orderBox {
+        /* Use the box ID and a valid padding unit. */
+        #orderBox {
             width: 450px;
             border: 2px solid black;
             margin: 20px auto;
-            padding: 20;
+            padding: 20px;
         }
 
         .field {
@@ -65,11 +67,8 @@
         <select id="product">
 
             <option value="">Select Product</option>
-
             <option value="Laptop">Laptop - Rs. 50000</option>
-
             <option value="Mobile">Mobile - Rs. 20000</option>
-
             <option value="Keyboard">Keyboard - Rs. 1500</option>
 
         </select>
@@ -80,44 +79,50 @@
 
         <label for="quantity">Quantity:</label>
 
-        <input type="text" id="quantity">
+        <!-- Keep quantity to positive numbers. -->
+        <input type="number" id="quantity" min="1">
 
     </div>
 
-    <button id="orderButton"
-            onclick="calculate()">
-
+    <!-- Call the correct billing function. -->
+    <button id="orderButton" onclick="calculateBill()">
         Generate Bill
-
     </button>
 
 </div>
 
 <div id="billBox" class="bill">
-
     Bill will appear here.
-
 </div>
 
 <script>
 
 function calculateBill() {
 
-    var customer =
-        document.getElementByID("customer").value;
+    // Get the form values from the correct IDs.
+    var customer = document.getElementById("customer").value;
+    var product = document.getElementById("product").value;
+    var quantity = document.getElementById("quantity").value;
 
-    var product =
-        document.getElementById("products").value;
-
-    var quantity =
-        document.getElementById("quantity").value;
-
-    if (customer == "" && quantity == "") {
-
-        alert("Enter Customer Name and Quantity");
-
+    // Stop early if any required value is invalid.
+    if (customer == "") {
+        alert("Enter Customer Name");
+        return;
     }
 
+    if (product == "") {
+        alert("Select Product");
+        return;
+    }
+
+    if (quantity == "" || isNaN(quantity) || Number(quantity) <= 0) {
+        alert("Enter a valid Quantity");
+        return;
+    }
+
+    quantity = Number(quantity);
+
+    // Match the prices shown in the product list.
     var price = 0;
 
     if (product == "Laptop") {
@@ -125,29 +130,39 @@ function calculateBill() {
     }
 
     if (product == "Mobile") {
-        price = 2000;
+        price = 20000;
     }
 
     if (product == "Keyboard") {
         price = 1500;
     }
 
-    var total =
-        price + quantity;
+    // Multiply price by quantity for the final total.
+    var total = price * quantity;
 
-    var customerType =
-        prompt("Enter Customer Type: Regular or Premium");
+    // Allow only the two expected customer types.
+    var customerType = prompt("Enter Customer Type: Regular or Premium");
 
-    var order =
-        confirm("Do you want to cancel this order?");
-
-    if (order == true) {
-
-        alert("Order placed successfully");
-
+    if (customerType == null || customerType == "") {
+        alert("Customer Type is required");
+        return;
     }
 
-    document.getElementById("bill").innerHTML =
+    if (customerType != "Regular" && customerType != "Premium") {
+        alert("Enter Regular or Premium only");
+        return;
+    }
+
+    // Ask before placing the order.
+    var order = confirm("Do you want to place this order?");
+
+    if (order == false) {
+        alert("Order cancelled");
+        return;
+    }
+
+    // Show the bill in the correct output box.
+    document.getElementById("billBox").innerHTML =
         "<h2>Order Bill</h2>" +
         "Customer: " + customer +
         "<br>Product: " + product +
@@ -156,6 +171,7 @@ function calculateBill() {
         "<br>Total Amount: " + total +
         "<br>Customer Type: " + customerType;
 
+    alert("Order placed successfully");
 }
 
 </script>
